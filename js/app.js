@@ -290,20 +290,46 @@ function bindEvents() {
     // All eligible voters have voted -> tally results
     const outcome = Engine.tallyVotes();
 
-    if (outcome.status === 'REVOTE') {
-      UI.toast('Tie detected! Starting revote among tied suspects.');
-      const aliveIds = State.match.players.filter((p) => p.alive).map((p) => p.id);
-      State.match.voting = {
-        eligibleVoters: aliveIds,
-        candidates: outcome.tiedIds,
-        voterIndex: 0,
-        votes: {},
-        selectedTarget: null,
-        isRevote: true
-      };
-      UI.renderVotingTurn();
-      return;
-    }
+   if (outcome.status === 'REVOTE') {
+  // If the revote ties again, resolve it with a random sudden-death elimination.
+  if (voting.isRevote) {
+    const pickedId = outcome.tiedIds[
+      Math.floor(Math.random() * outcome.tiedIds.length)
+    ];
+
+    const eliminated = State.match.players.find(
+      (p) => p.id === pickedId
+    );
+
+    eliminated.alive = false;
+    State.match.lastEliminated = eliminated;
+
+    AudioFX.eliminate();
+    UI.toast('Revote tied again! Random sudden-death elimination.');
+    UI.renderElimination(eliminated, true);
+    UI.showScreen('screen-elimination', 'ELIMINATION');
+    return;
+  }
+
+  UI.toast('Tie detected! Starting revote among tied suspects.');
+
+  const aliveIds = State.match.players
+    .filter((p) => p.alive)
+    .map((p) => p.id);
+
+  State.match.voting = {
+    eligibleVoters: aliveIds,
+    candidates: outcome.tiedIds,
+    voterIndex: 0,
+    votes: {},
+    selectedTarget: null,
+    isRevote: true
+  };
+
+  UI.renderVotingTurn();
+  return;
+}
+
 
     if (outcome.status === 'NO_ELIMINATION') {
       UI.toast('Vote tied! Nobody was eliminated this round.');
