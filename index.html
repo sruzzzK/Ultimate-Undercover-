@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b0f19" />
+  <title>ULTIMATE UNDERCOVER — Word Party Game</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Animated Ambient Background -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div id="app" class="app-shell">
+    <!-- Top Bar (Persistent across sub-screens) -->
+    <header id="top-bar" class="top-bar hidden">
+      <button id="btn-nav-home" class="icon-btn" aria-label="Return Home" title="Home">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+      <span id="top-bar-title" class="top-bar-title">SETUP</span>
+      <button id="btn-nav-settings" class="icon-btn" aria-label="Settings" title="Settings">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- SCREEN 1: HOME -->
+    <main id="screen-home" class="screen active">
+      <div class="hero-container">
+        <div class="logo-badge">
+          <svg viewBox="0 0 64 64" width="68" height="68" fill="none">
+            <rect x="6" y="6" width="52" height="52" rx="16" fill="url(#logoGrad)" fill-opacity="0.18" stroke="url(#logoGrad)" stroke-width="2.5"/>
+            <path d="M18 34c4-8 24-8 28 0" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="24" cy="36" r="4.5" fill="#38bdf8"/>
+            <circle cx="40" cy="36" r="4.5" fill="#f43f5e"/>
+            <path d="M28.5 36h7" stroke="#e2e8f0" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M22 23l10-5 10 5" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/>
+                <stop offset="1" stop-color="#a855f7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <h1 class="game-title">ULTIMATE<br><span class="gradient-text">UNDERCOVER</span></h1>
+        <p class="game-subtitle">Deceive. Deduce. Survive the Vote.</p>
+
+        <div class="stats-card">
+          <div class="stat-item">
+            <span id="stat-total-words" class="stat-value">0</span>
+            <span class="stat-label">Verified Pairs</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span id="stat-categories" class="stat-value">0</span>
+            <span class="stat-label">Categories</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span id="stat-unplayed" class="stat-value">0</span>
+            <span class="stat-label">Fresh Unplayed</span>
+          </div>
+        </div>
+
+        <div class="home-actions">
+          <button id="btn-home-play" class="btn btn-primary btn-lg">
+            <span>START NEW GAME</span>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </button>
+          <div class="home-secondary-row">
+            <button id="btn-home-rules" class="btn btn-secondary">How to Play</button>
+            <button id="btn-home-settings" class="btn btn-secondary">Settings</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- SCREEN 2: SETUP -->
+    <section id="screen-setup" class="screen">
+      <div class="scroll-content">
+        <!-- Player Count & Role Distribution -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Players & Roles</h2>
+            <span id="setup-player-badge" class="badge">5 Players</span>
+          </div>
+
+          <div class="stepper-row">
+            <label>Total Players (3–20)</label>
+            <div class="stepper">
+              <button id="btn-players-dec" class="stepper-btn" type="button">−</button>
+              <span id="val-player-count" class="stepper-val">5</span>
+              <button id="btn-players-inc" class="stepper-btn" type="button">+</button>
+            </div>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Randomize Role Counts</strong>
+              <p class="hint">Automatically balances hidden threats</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chk-random-roles" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div id="manual-roles-panel" class="roles-config-grid">
+            <div class="role-box civilian">
+              <span class="role-dot"></span>
+              <span class="role-name">Civilians</span>
+              <strong id="val-civilians-count" class="role-count">3</strong>
+            </div>
+
+            <div class="role-box undercover">
+              <span class="role-dot"></span>
+              <span class="role-name">Undercover</span>
+              <div class="mini-stepper">
+                <button id="btn-uc-dec" type="button">−</button>
+                <span id="val-uc-count">1</span>
+                <button id="btn-uc-inc" type="button">+</button>
+              </div>
+            </div>
+
+            <div class="role-box mrwhite">
+              <span class="role-dot"></span>
+              <span class="role-name">Mr. White</span>
+              <div class="mini-stepper">
+                <button id="btn-mw-dec" type="button">−</button>
+                <span id="val-mw-count">1</span>
+                <button id="btn-mw-inc" type="button">+</button>
+              </div>
+            </div>
+          </div>
+          <p id="role-validation-msg" class="validation-msg hidden"></p>
+        </div>
+
+        <!-- Difficulty & Categories -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Word Pool & Difficulty</h2>
+            <span id="pool-count-badge" class="badge badge-accent">0 matching</span>
+          </div>
+
+          <label class="field-label">Difficulty Level</label>
+          <div class="segmented-control" id="difficulty-selector">
+            <button type="button" class="seg-btn active" data-diff="all">All</button>
+            <button type="button" class="seg-btn" data-diff="easy">Easy</button>
+            <button type="button" class="seg-btn" data-diff="medium">Medium</button>
+            <button type="button" class="seg-btn" data-diff="hard">Hard</button>
+          </div>
+
+          <div class="cat-header-row">
+            <label class="field-label">Categories</label>
+            <div class="cat-bulk-actions">
+              <button type="button" id="btn-cats-all" class="text-btn">Select All</button>
+              <span>•</span>
+              <button type="button" id="btn-cats-none" class="text-btn">Clear</button>
+            </div>
+          </div>
+          <div id="category-chips" class="chips-grid"></div>
+        </div>
+
+        <!-- Player Names -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Player Roster</h2>
+            <button type="button" id="btn-reset-names" class="text-btn">Reset Names</button>
+          </div>
+          <div id="player-names-list" class="names-grid"></div>
+        </div>
+      </div>
+
+      <div class="sticky-footer">
+        <button id="btn-start-match" class="btn btn-primary btn-lg">DISTRIBUTE ROLES</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: ROLE DISTRIBUTION -->
+    <section id="screen-distribution" class="screen">
+      <div class="center-stage">
+        <div class="progress-pill">
+          Player <span id="dist-current-num">1</span> of <span id="dist-total-num">5</span>
+        </div>
+
+        <!-- Step A: Pass Device -->
+        <div id="dist-pass-card" class="pass-card">
+          <div class="avatar-circle" id="dist-avatar">P1</div>
+          <p class="pass-prompt">Pass the device to</p>
+          <h2 id="dist-player-name" class="player-highlight">Player 1</h2>
+          <p class="privacy-note">Make sure nobody else can see the screen.</p>
+          <button id="btn-reveal-role" class="btn btn-primary btn-lg">TAP TO REVEAL ROLE</button>
+        </div>
+
+        <!-- Step B: Secret Role Reveal -->
+        <div id="dist-secret-card" class="secret-card hidden">
+          <span class="secret-owner" id="secret-owner-label">Player 1</span>
+          <div id="secret-role-badge" class="role-pill">YOUR SECRET WORD</div>
+          <div id="secret-word-display" class="secret-word">OCEAN</div>
+          <p id="secret-instruction" class="secret-hint">
+            Describe this word subtly without giving it away to infiltrators.
+          </p>
+          <button id="btn-hide-pass" class="btn btn-secondary btn-lg">HIDE & PASS DEVICE</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: DESCRIPTION ROUND -->
+    <section id="screen-discussion" class="screen">
+      <div class="scroll-content">
+        <div class="round-banner">
+          <div>
+            <span class="round-kicker">ROUND <span id="round-number">1</span></span>
+            <h2>Description Phase</h2>
+          </div>
+          <div id="discussion-timer-box" class="timer-pill hidden">
+            <span id="discussion-timer-val">01:30</span>
+          </div>
+        </div>
+
+        <div class="card info-banner">
+          <p>Going in the order below, each player gives <strong>one short clue</strong> about their word. Watch for hesitation or vague answers!</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Speaking Order</h3>
+            <span id="alive-count-badge" class="badge">5 Alive</span>
+          </div>
+          <ol id="speaking-order-list" class="speaking-list"></ol>
+        </div>
+      </div>
+
+      <div class="sticky-footer">
+        <button id="btn-goto-voting" class="btn btn-primary btn-lg">PROCEED TO VOTING</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: VOTING -->
+    <section id="screen-voting" class="screen">
+      <div class="scroll-content">
+        <div class="round-banner">
+          <div>
+            <span class="round-kicker">BALLOT BOX</span>
+            <h2 id="voting-title">Cast Votes</h2>
+          </div>
+          <div id="voting-timer-box" class="timer-pill hidden">
+            <span id="voting-timer-val">00:45</span>
+          </div>
+        </div>
+
+        <div id="voter-turn-banner" class="card voter-banner">
+          <span>Current Voter:</span>
+          <strong id="current-voter-name">Player 1</strong>
+          <small>(Tap the player you suspect most)</small>
+        </div>
+
+        <div id="voting-candidates-grid" class="candidates-grid"></div>
+      </div>
+
+      <div class="sticky-footer">
+        <button id="btn-confirm-vote" class="btn btn-danger btn-lg" disabled>CONFIRM VOTE</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 6: ELIMINATION & MR. WHITE GUESS -->
+    <section id="screen-elimination" class="screen">
+      <div class="center-stage">
+        <div id="elim-reveal-box" class="elim-card">
+          <span class="elim-kicker">ELIMINATED</span>
+          <h2 id="elim-player-name" class="elim-name">Player 3</h2>
+          <div id="elim-role-tag" class="elim-role-badge">UNDERCOVER</div>
+          <p id="elim-flavor-text" class="elim-desc">One infiltrator has been uncovered!</p>
+
+          <!-- Mr. White Last-Chance Guess Form -->
+          <div id="mr-white-guess-box" class="mw-guess-panel hidden">
+            <h3>Mr. White's Final Gambit!</h3>
+            <p>Guess the Civilians' exact secret word to steal an instant victory:</p>
+            <input type="text" id="input-mw-guess" class="text-input" placeholder="Type Civilian secret word..." autocomplete="off" />
+            <button id="btn-submit-mw-guess" class="btn btn-primary btn-lg">SUBMIT FINAL GUESS</button>
+          </div>
+
+          <button id="btn-after-elim" class="btn btn-primary btn-lg">CONTINUE</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 7: VICTORY / GAME OVER -->
+    <section id="screen-victory" class="screen">
+      <div class="scroll-content">
+        <div class="victory-hero">
+          <div class="trophy-icon">🏆</div>
+          <span class="victory-kicker">GAME OVER</span>
+          <h1 id="victory-winner-title" class="victory-title">CIVILIANS WIN!</h1>
+          <p id="victory-reason" class="victory-reason">All infiltrators have been eliminated.</p>
+        </div>
+
+        <div class="words-reveal-grid">
+          <div class="word-reveal-card civ">
+            <span>Civilian Word</span>
+            <strong id="final-civ-word">OCEAN</strong>
+          </div>
+          <div class="word-reveal-card uc">
+            <span>Undercover Word</span>
+            <strong id="final-uc-word">SEA</strong>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Final Identity Reveal</h3>
+            <span id="final-pair-meta" class="badge">Nature • Easy</span>
+          </div>
+          <ul id="final-roles-list" class="final-roles-list"></ul>
+        </div>
+      </div>
+
+      <div class="sticky-footer dual-footer">
+        <button id="btn-victory-home" class="btn btn-secondary">Home</button>
+        <button id="btn-victory-again" class="btn btn-primary">Play Again</button>
+      </div>
+    </section>
+
+    <!-- MODAL: SETTINGS -->
+    <div id="modal-settings" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>Game Settings</h2>
+          <button id="btn-close-settings" class="icon-btn" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="toggle-row">
+            <div>
+              <strong>Dark Theme</strong>
+              <p class="hint">Deep navy & neon party aesthetic</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="set-dark-theme" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Sound Effects</strong>
+              <p class="hint">Synthesized audio cues & alerts</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="set-sound" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Animations</strong>
+              <p class="hint">Smooth transitions & ambient glow</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="set-animations" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-block">
+            <label class="field-label">Undercover Win Condition</label>
+            <select id="set-uc-win-rule" class="select-input">
+              <option value="parity">Parity (Infiltrators ≥ Civilians)</option>
+              <option value="last_two">Survive to Final 2 Players</option>
+            </select>
+          </div>
+
+          <div class="setting-block">
+            <label class="field-label">Voting Tie-Break Rule</label>
+            <select id="set-tie-rule" class="select-input">
+              <option value="revote">Revote Among Tied Players</option>
+              <option value="no_elim">No One Eliminated (Skip Round)</option>
+              <option value="random">Random Sudden Death</option>
+            </select>
+          </div>
+
+          <div class="setting-block">
+            <label class="field-label">Discussion Timer</label>
+            <select id="set-disc-timer" class="select-input">
+              <option value="0">Off (Unlimited)</option>
+              <option value="60">60 Seconds</option>
+              <option value="90">90 Seconds</option>
+              <option value="120">2 Minutes</option>
+              <option value="180">3 Minutes</option>
+            </select>
+          </div>
+
+          <div class="setting-block">
+            <label class="field-label">Voting Timer</label>
+            <select id="set-vote-timer" class="select-input">
+              <option value="0">Off (Unlimited)</option>
+              <option value="30">30 Seconds</option>
+              <option value="45">45 Seconds</option>
+              <option value="60">60 Seconds</option>
+            </select>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="toggle-row">
+            <div>
+              <strong>Recycle Exhausted Words</strong>
+              <p class="hint">Automatically reset pool once all pairs are played</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="set-recycle-words" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="history-box">
+            <div>
+              <strong>Played Word History</strong>
+              <p class="hint"><span id="history-used-count">0</span> pairs played so far</p>
+            </div>
+            <button id="btn-reset-history" class="btn btn-danger btn-sm">Reset History</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: HOW TO PLAY -->
+    <div id="modal-rules" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>How to Play</h2>
+          <button id="btn-close-rules" class="icon-btn" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body rules-copy">
+          <div class="rule-item">
+            <span class="badge badge-civ">CIVILIANS</span>
+            <p>Everyone gets the exact same secret word. Give clever clues to find your allies and vote out the impostors.</p>
+          </div>
+          <div class="rule-item">
+            <span class="badge badge-uc">UNDERCOVER</span>
+            <p>You receive a closely related but different word. Listen carefully, blend in, and avoid suspicion.</p>
+          </div>
+          <div class="rule-item">
+            <span class="badge badge-mw">MR. WHITE</span>
+            <p>You get <strong>no word at all</strong>. Improvise based on others' clues. If voted out, you get one shot to guess the Civilians' word to win immediately!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden" role="status"></div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
