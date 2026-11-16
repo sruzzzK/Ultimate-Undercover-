@@ -308,4 +308,5 @@ export const RAW_WORD_DATABASE = [
   { civ: 'Jazz', uc: 'Blues', cat: 'Music', diff: 'medium' },
   { civ: 'Lyrics', uc: 'Melody', cat: 'Music', diff: 'medium' },
   { civ: 'DJ', uc: 'Producer', cat: 'Music', diff: 'medium' },
-  { civ: 'Karaoke', u
+    { civ: 'Karaoke', uc: 'Open Mic', cat: 'Music', diff: 'easy' },
+];
